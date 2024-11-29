@@ -1,6 +1,5 @@
 ---
-import Footer from "../components/Footer.astro";
-import Nav from "../components/Nav.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
 import "../styles/global.css";
 
 const pageTitle = "My Astro Learning Blog";
@@ -11,19 +10,24 @@ const pageTitle = "My Astro Learning Blog";
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width" />
         <title>{pageTitle}</title>
+        <style is:global>
+            h1 {
+                color: black;
+                font-size: 42px;
+            }
+        </style>
     </head>
     <body>
-        <Nav />
+        <BaseLayout pageTitle={pageTitle}>
+            <h2>you Fool!</h2>
 
-        <h1>{pageTitle}, you fool!</h1>
-        <p>This is where I will post about my journey learning Astro.</p>
+            <p>This is where I will post about my journey learning Astro.</p>
 
-        <ul>
-            <li><a href="/posts/post-1/">Post 1</a></li>
-            <li><a href="/posts/post-2/">Post 2</a></li>
-            <li><a href="/posts/post-3/">Post 3</a></li>
-        </ul>
-
-        <Footer />
+            <ul>
+                <li><a href="/posts/post-1/">Post 1</a></li>
+                <li><a href="/posts/post-2/">Post 2</a></li>
+                <li><a href="/posts/post-3/">Post 3</a></li>
+            </ul>
+        </BaseLayout>
     </body>
 </html>
