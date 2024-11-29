@@ -1,0 +1,23 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout pageTitle="dashboard">
+    <button id="logout-btn">logout</button>
+
+    <h2>welcome <span class="username"></span></h2>
+
+    <script>
+        import { verifyAuth } from "../lib/helperFns";
+
+        const { username } = verifyAuth();
+
+        document.querySelector(".username")!.textContent = username;
+
+        (document.querySelector("#logout-btn") as HTMLButtonElement).onclick = (e) => {
+            console.log(e);
+            sessionStorage.clear();
+            location.assign("/");
+        };
+    </script>
+</BaseLayout>

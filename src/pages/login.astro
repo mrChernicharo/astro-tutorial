@@ -1,0 +1,48 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const pageTitle = "Login";
+---
+
+<BaseLayout pageTitle={pageTitle}>
+    <form style="display: grid; gap: 4px; margin: 164px 0px;">
+        <label for="email">email</label>
+        <input id="email" name="email" type="email" value="felzin@gmail.cum" />
+
+        <label for="password">password</label>
+        <input id="password" name="password" type="password" />
+
+        <br />
+        <button>submit</button>
+    </form>
+
+    <script>
+        import { API_URL } from "../lib/constants";
+        import { postFn, verifyAuth } from "../lib/helperFns";
+        import type { User } from "@melodev/melosoft-learning-lib";
+
+        verifyAuth();
+
+        document.querySelector("form")!.onsubmit = async (e) => {
+            e.preventDefault();
+            const formValues = [...document.querySelectorAll("input")].reduce((acc: Record<string, string>, input) => {
+                acc[input.name] = input.value;
+                return acc;
+            }, {});
+
+            const { payload, err } = await postFn<User & { token: string }>(`${API_URL}/password-login`, formValues);
+
+            if (err || !payload?.token) {
+                console.error({ payload, err });
+                return;
+            }
+            console.log({ formValues, payload, err, token: payload?.token });
+            sessionStorage.setItem("user-id", String(payload.id));
+            sessionStorage.setItem("user-name", payload.name);
+            sessionStorage.setItem("user-image_url", payload.image_url);
+            sessionStorage.setItem("melosoft-token", payload.token);
+            sessionStorage.setItem("melosoft-token-expires", String(Date.now() + 15 * 60 * 1000));
+            location.assign("/dashboard");
+        };
+    </script>
+</BaseLayout>

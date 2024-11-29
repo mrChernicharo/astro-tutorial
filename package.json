@@ -9,6 +9,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@melodev/melosoft-learning-lib": "^1.0.9",
     "astro": "^4.16.16"
   }
 }

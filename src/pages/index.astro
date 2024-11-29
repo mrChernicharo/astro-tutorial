@@ -1,8 +1,21 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 const pageTitle = "Home Page";
+// const url = "http://localhost:4434/test";
+const url = "http://localhost:4434/users?limit=3&offset=0";
+const { payload: users } = await fetch(url).then((res) => res.json());
+// console.log(payload);  // <-- logs in the server
 ---
 
 <BaseLayout pageTitle={pageTitle}>
     <h2>My awesome blog subtitle</h2>
+
+    <ul>
+        {users.map((user: { name: string }) => <div>{user.name}</div>)}
+    </ul>
+
+    <script>
+        import { verifyAuth } from "../lib/helperFns";
+        verifyAuth();
+    </script>
 </BaseLayout>

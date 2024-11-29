@@ -1,0 +1,39 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const pageTitle = "Sign up";
+---
+
+<BaseLayout pageTitle={pageTitle}>
+    <form style="display: grid; gap: 4px; margin: 164px 0px;">
+        <label for="name">name</label>
+        <input id="name" name="name" type="text" value="felzin" />
+
+        <label for="email">email</label>
+        <input id="email" name="email" type="email" value="felzin@gmail.cum" />
+
+        <label for="password">password</label>
+        <input id="password" name="password" type="password" />
+
+        <br />
+        <button>submit</button>
+    </form>
+
+    <script>
+        import { API_URL } from "../lib/constants";
+        import { postFn } from "../lib/helperFns";
+        import type { User } from "@melodev/melosoft-learning-lib";
+
+        document.querySelector("form")!.onsubmit = async (e) => {
+            e.preventDefault();
+            const formValues = [...document.querySelectorAll("input")].reduce((acc: Record<string, string>, input) => {
+                acc[input.name] = input.value;
+                return acc;
+            }, {});
+
+            const { payload, err } = await postFn<User>(`${API_URL}/password-signup`, formValues);
+
+            console.log({ formValues, payload, err });
+        };
+    </script>
+</BaseLayout>

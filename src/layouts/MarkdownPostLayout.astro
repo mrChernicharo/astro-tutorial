@@ -1,4 +1,7 @@
 ---
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+
 const { frontmatter } = Astro.props;
 ---
 
@@ -18,3 +21,5 @@ const { frontmatter } = Astro.props;
 <img src={frontmatter.image.url} width="300" alt={frontmatter.image.alt} />
 
 <slot />
+
+<Footer />
