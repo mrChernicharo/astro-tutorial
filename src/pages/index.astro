@@ -1,4 +1,7 @@
 ---
+import "../styles/global.css";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
 const greeting = "Hola";
 const pageTitle = "Home Page";
 ---
@@ -12,12 +15,14 @@ const pageTitle = "Home Page";
         <title>{pageTitle}</title>
     </head>
     <body>
-        <nav>
-            <a href="/">Home</a>
-            <a href="/about/">About</a>
-            <a href="/blog/">Blog</a>
-        </nav>
+        <Nav />
 
         <h1>{greeting} Astro</h1>
+
+        <Footer />
+
+        <script>
+            import "../scripts/menu.js";
+        </script>
     </body>
 </html>
